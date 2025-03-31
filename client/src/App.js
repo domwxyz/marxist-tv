@@ -26,9 +26,13 @@ function App() {
           setCurrentVideo(data[0]);
         }
         
-        // Extract unique sections from the videos
-        const uniqueSections = ['all', ...new Set(data.map(video => video.section))];
-        setSections(uniqueSections);
+        // Extract unique sections from the videos, but DON'T update the sections state
+        // This ensures all section buttons remain visible
+        if (sections.length <= 1) {
+          // Only run this once to initially populate the sections
+          const uniqueSections = ['all', ...new Set(data.map(video => video.section))];
+          setSections(uniqueSections);
+        }
         
         setLoading(false);
       } catch (err) {
@@ -66,7 +70,7 @@ function App() {
   return (
     <div className="app-container">
       <header>
-        <h1>Revolutionary Communist TV</h1>
+        <h1>Marxist TV</h1>
         <SectionSelector 
           sections={sections}
           currentSection={currentSection}
