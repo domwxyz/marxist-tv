@@ -66,7 +66,7 @@ function App() {
   return (
     <div className="app-container">
       <header>
-        <h1>Your Organization's TV</h1>
+        <h1>Revolutionary Communist TV</h1>
         <SectionSelector 
           sections={sections}
           currentSection={currentSection}
