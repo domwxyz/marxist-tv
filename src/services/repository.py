@@ -79,3 +79,51 @@ def update_videos_for_channel(db: Session, channel_id: str, videos_data: List[di
     
     db.commit()
     
+
+def get_paginated_videos(db: Session, section: Optional[str] = None, cursor: Optional[str] = None, limit: int = 10):
+    """
+    Get videos with pagination
+    - section: Filter by section (optional)
+    - cursor: ID of the last video from previous page (optional)
+    - limit: Number of videos to return
+    """
+    query = db.query(
+        Video,
+        Channel.title.label("channel_title"),
+        Channel.section
+    ).join(Channel)
+    
+    # Filter by section if provided
+    if section and section.lower() != "all":
+        query = query.filter(Channel.section == section)
+    
+    # Order by published date descending
+    query = query.order_by(Video.published_at.desc())
+    
+    # Apply cursor pagination if cursor is provided
+    if cursor:
+        try:
+            # Get the published date of the cursor video
+            cursor_video = db.query(Video).filter(Video.id == cursor).first()
+            if cursor_video:
+                # Get videos published before the cursor video
+                query = query.filter(Video.published_at < cursor_video.published_at)
+        except Exception as e:
+            print(f"Error applying cursor pagination: {e}")
+    
+    # Get one more video than requested to determine if there are more pages
+    videos = query.limit(limit + 1).all()
+    
+    # Check if there are more videos
+    has_more = len(videos) > limit
+    
+    # Return only the requested number of videos
+    result_videos = videos[:limit]
+    
+    # Set next cursor to the ID of the last video if there are more videos
+    next_cursor = result_videos[-1][0].id if has_more and result_videos else None
+    
+    return {
+        "videos": result_videos,
+        "next_cursor": next_cursor
+    }

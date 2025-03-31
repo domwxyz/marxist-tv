@@ -187,3 +187,35 @@ h1 {
   font-size: 18px;
   color: var(--primary-color-dark);
 }
+
+.load-more-container {
+  display: flex;
+  justify-content: center;
+  padding: 15px 0;
+  margin-top: 10px;
+}
+
+.load-more-button {
+  background-color: var(--primary-color);
+  color: var(--text-on-primary);
+  border: none;
+  padding: 10px 20px;
+  border-radius: 4px;
+  cursor: pointer;
+  font-weight: bold;
+  transition: background-color 0.3s;
+}
+
+.load-more-button:hover {
+  background-color: var(--primary-color-dark);
+}
+
+.load-more-button:disabled {
+  background-color: #ccc;
+  cursor: not-allowed;
+}
+
+/* Make sure the video list has a min-height to avoid layout shifts */
+.video-scroll {
+  min-height: 200px;
+}

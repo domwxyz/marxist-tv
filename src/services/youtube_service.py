@@ -39,31 +39,49 @@ class YouTubeService:
             print(f"An HTTP error occurred: {e}")
             return None
     
-    def get_playlist_videos(self, playlist_id, max_results=10):
+    def get_playlist_videos(self, playlist_id, max_results=10, page_token=None):
         """Fetch videos from a playlist (typically the uploads playlist)"""
         try:
-            request = self.youtube.playlistItems().list(
-                part="snippet,contentDetails",
-                playlistId=playlist_id,
-                maxResults=max_results
-            )
+            request_params = {
+                "part": "snippet,contentDetails",
+                "playlistId": playlist_id,
+                "maxResults": max_results
+            }
+            
+            # Add page token if provided
+            if page_token:
+                request_params["pageToken"] = page_token
+                
+            request = self.youtube.playlistItems().list(**request_params)
             response = request.execute()
             
             videos = []
             for item in response.get("items", []):
                 video_id = item["contentDetails"]["videoId"]
                 snippet = item["snippet"]
+                
+                # Get thumbnail URL safely
+                thumbnail_url = ""
+                if "thumbnails" in snippet:
+                    thumbnails = snippet["thumbnails"]
+                    if "high" in thumbnails:
+                        thumbnail_url = thumbnails["high"]["url"]
+                    elif "default" in thumbnails:
+                        thumbnail_url = thumbnails["default"]["url"]
+                
                 videos.append({
                     "id": video_id,
                     "title": snippet["title"],
                     "description": snippet["description"],
                     "published_at": snippet["publishedAt"],
-                    "thumbnail_url": snippet["thumbnails"]["high"]["url"] if "high" in snippet["thumbnails"] else snippet["thumbnails"]["default"]["url"],
+                    "thumbnail_url": thumbnail_url,
                     "channel_id": snippet["channelId"]
                 })
                 
-            return videos
+            # Return videos list and next page token separately
+            return videos, response.get("nextPageToken")
+            
         except HttpError as e:
             print(f"An HTTP error occurred: {e}")
-            return []
+            return [], None
             

@@ -23,3 +23,18 @@ export const fetchChannels = async () => {
     throw error;
   }
 };
+
+export const loadMoreVideos = async (section = 'all', cursor = null) => {
+  try {
+    const response = await axios.get(`${API_URL}/videos/load-more`, {
+      params: { 
+        section,
+        cursor 
+      }
+    });
+    return response.data;
+  } catch (error) {
+    console.error('Error loading more videos:', error);
+    throw error;
+  }
+};

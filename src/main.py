@@ -97,13 +97,27 @@ async def fetch_and_update_videos(channel_id: str, uploads_playlist_id: str):
     youtube_service = YouTubeService()
     db = next(get_db())
     
-    # Fetch videos from YouTube
-    videos = youtube_service.get_playlist_videos(uploads_playlist_id)
-    
-    # Update database
-    update_videos_for_channel(db, channel_id, videos)
-    
-    print(f"Updated {len(videos)} videos for channel {channel_id}")
+    try:
+        # Fetch videos from YouTube - now properly handling tuple return
+        videos, next_page_token = youtube_service.get_playlist_videos(uploads_playlist_id)
+        
+        # Update database
+        update_videos_for_channel(db, channel_id, videos)
+        
+        print(f"Updated {len(videos)} videos for channel {channel_id}")
+        
+        # Fetch additional pages if available
+        while next_page_token:
+            additional_videos, next_page_token = youtube_service.get_playlist_videos(
+                uploads_playlist_id, 10, next_page_token
+            )
+            update_videos_for_channel(db, channel_id, additional_videos)
+            print(f"Updated {len(additional_videos)} additional videos for channel {channel_id}")
+            
+            # Add a small delay to avoid rate limiting
+            await asyncio.sleep(1)
+    except Exception as e:
+        print(f"Error fetching videos for channel {channel_id}: {e}")
 
 @app.get("/")
 def read_root():
