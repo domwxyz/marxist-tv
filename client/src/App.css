@@ -1,39 +1,113 @@
+/* 
+ * Marxist TV CSS
+ * Styled to match Marxist Chat application
+ */
+
+/* ===== VARIABLES ===== */
 :root {
   --primary-color: #DB1E1E;
-  --primary-color-light: #f5dddd;
-  --primary-color-dark: #a51717;
-  --text-on-primary: white;
+  --primary-light: #ee8181;
+  --primary-dark: #901414;
+  --text-on-primary: #ffffff;
+  --background: #dbd6d6;
+  --surface: #ffffff;
+  --text: #212121;
+  --divider: #e0e0e0;
+  --heading-font: 'Built Titling', serif;
+  --body-font: 'Cambria', Georgia, serif;
 }
 
+/* ===== BASE STYLES ===== */
+body {
+  font-family: var(--body-font);
+  margin: 0;
+  padding: 0;
+  background-color: var(--background);
+  color: var(--text);
+  line-height: 1.6;
+}
+
+h1, h2, h3, h4, h5, h6 {
+  font-family: var(--heading-font);
+}
+
+/* ===== LAYOUT ===== */
 .app-container {
   max-width: 1200px;
-  margin: 0 auto;
-  padding: 20px;
+  margin: 20px auto;
+  padding: 0 10px;
+  display: flex;
+  flex-direction: row;
+  gap: 20px;
+  min-height: calc(100vh - 40px);
 }
 
+.main-column {
+  flex: 2;
+  display: flex;
+  flex-direction: column;
+  height: calc(100vh - 40px);
+  max-height: calc(100vh - 40px);
+  overflow: hidden;
+}
+
+.card-container {
+  display: flex;
+  flex-direction: column;
+  box-shadow: 0 12px 28px rgba(0, 0, 0, 0.25), 0 8px 10px rgba(0, 0, 0, 0.15);
+  border-radius: 8px;
+  overflow: hidden;
+  background-color: var(--surface);
+  margin-bottom: 10px;
+}
+
+.player-container {
+  flex-grow: 1;
+  display: flex;
+  flex-direction: column;
+}
+
+.list-container {
+  flex: 1;
+  align-self: flex-start;
+  height: auto;
+  max-height: calc(100vh - 80px);
+  margin-top: 0;
+  position: sticky;
+  top: 20px;
+}
+
+/* ===== HEADER ===== */
 header {
-  margin-bottom: 20px;
   background-color: var(--primary-color);
-  padding: 20px;
-  border-radius: 4px;
   color: var(--text-on-primary);
+  padding: 12px 20px;
+  text-align: center;
+  border-radius: 8px 8px 0 0;
+}
+
+.header-content {
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  position: relative;
+}
+
+.logo {
+  height: 40px;
+  position: absolute;
+  left: 0;
 }
 
 h1 {
-  text-align: center;
-  margin-bottom: 20px;
-  color: var(--text-on-primary);
-  font-size: 48px;
-}
-
-h2 {
+  margin: 0;
   font-size: 32px;
+  font-family: var(--heading-font) !important;
+  text-align: center;
+  width: 100%;
 }
 
-h4 {
-  font-size: 24px;
-}
-
+/* ===== SECTION SELECTOR ===== */
 .section-selector {
   display: flex;
   justify-content: center;
@@ -50,6 +124,7 @@ h4 {
   cursor: pointer;
   border-radius: 4px;
   transition: all 0.2s;
+  font-family: var(--heading-font);
 }
 
 .section-selector button:hover {
@@ -63,18 +138,25 @@ h4 {
   font-weight: bold;
 }
 
+/* ===== VIDEO PLAYER ===== */
 .video-player {
-  margin-bottom: 30px;
+  display: flex;
+  flex-direction: column;
+  flex: 1;
+  padding: 15px;
+  overflow: hidden;
+  min-height: 0;
 }
 
 .video-container {
   position: relative;
-  padding-bottom: 56.25%; /* 16:9 aspect ratio */
   height: 0;
   overflow: hidden;
-  max-width: 100%;
+  padding-bottom: 56.25%;
+  width: 100%;
   border: 2px solid var(--primary-color);
   border-radius: 4px;
+  margin-bottom: 15px;
 }
 
 .video-container iframe {
@@ -86,12 +168,19 @@ h4 {
 }
 
 .video-info {
-  margin-top: 15px;
+  overflow-y: auto;
+  padding-right: 5px;
+  flex: 1;
+  display: flex;
+  flex-direction: column;
+  min-height: 0;
 }
 
 .video-info h2 {
+  margin-top: 0;
   margin-bottom: 10px;
   color: var(--primary-color);
+  font-size: 1.5rem;
 }
 
 .channel-title {
@@ -106,31 +195,41 @@ h4 {
 
 .video-description {
   white-space: pre-line;
+  flex-grow: 1;
+  overflow-y: auto;
 }
 
+/* ===== VIDEO LIST ===== */
 .video-list {
-  margin-top: 30px;
+  display: flex;
+  flex-direction: column;
+  height: 100%;
+  padding: 15px;
+  overflow: hidden;
 }
 
 .video-list h3 {
-  margin-bottom: 15px;
+  margin: 0 0 15px 0;
   color: var(--primary-color);
   border-bottom: 2px solid var(--primary-color);
   padding-bottom: 5px;
+  font-family: var(--heading-font);
 }
 
 .video-scroll {
+  flex-grow: 1;
   display: flex;
   flex-direction: column;
-  gap: 15px;
-  max-height: 600px;
+  gap: 10px;
   overflow-y: auto;
+  max-height: calc(100vh - 200px);
+  padding-right: 5px;
 }
 
 .video-item {
   display: flex;
-  gap: 15px;
-  padding: 10px;
+  gap: 10px;
+  padding: 8px;
   border-radius: 4px;
   cursor: pointer;
   transition: background-color 0.2s;
@@ -144,11 +243,11 @@ h4 {
 
 .video-item.active {
   background-color: var(--primary-color-light);
-  border-left: 3px solid var(--primary-color);
+  border-left-color: var(--primary-color);
 }
 
 .thumbnail {
-  width: 120px;
+  width: 100px;
   flex-shrink: 0;
 }
 
@@ -162,22 +261,60 @@ h4 {
 .video-item .video-info {
   flex: 1;
   margin-top: 0;
+  max-height: none;
+  overflow: hidden;
 }
 
 .video-item h4 {
   margin: 0 0 5px 0;
+  font-size: 0.9rem;
+  line-height: 1.2;
+  display: -webkit-box;
+  -webkit-line-clamp: 2;
+  -webkit-box-orient: vertical;
+  overflow: hidden;
 }
 
 .video-item p {
-  margin: 0 0 5px 0;
-  font-size: 14px;
+  margin: 0 0 3px 0;
+  font-size: 0.8rem;
 }
 
 .video-item .date {
   color: #666;
-  font-size: 12px;
+  font-size: 0.75rem;
 }
 
+/* ===== LOAD MORE BUTTON ===== */
+.load-more-container {
+  display: flex;
+  justify-content: center;
+  padding: 10px 0;
+  margin-top: 5px;
+}
+
+.load-more-button {
+  padding: 8px 16px;
+  background-color: var(--primary-color);
+  color: white;
+  border: none;
+  border-radius: 4px;
+  cursor: pointer;
+  font-size: 14px;
+  font-family: var(--heading-font) !important;
+  transition: background-color 0.3s;
+}
+
+.load-more-button:hover {
+  background-color: var(--primary-dark);
+}
+
+.load-more-button:disabled {
+  background-color: #cccccc;
+  cursor: not-allowed;
+}
+
+/* ===== STATUS MESSAGES ===== */
 .loading, .error {
   text-align: center;
   padding: 50px;
@@ -186,7 +323,8 @@ h4 {
 }
 
 .video-placeholder {
-  height: 500px;
+  height: 100%;
+  min-height: 300px;
   display: flex;
   align-items: center;
   justify-content: center;
@@ -195,36 +333,125 @@ h4 {
   border-radius: 4px;
   font-size: 18px;
   color: var(--primary-color-dark);
+  margin: 15px;
 }
 
-.load-more-container {
-  display: flex;
-  justify-content: center;
-  padding: 15px 0;
-  margin-top: 10px;
+/* ===== FOOTER ===== */
+footer {
+  width: 100%;
+  text-align: center;
+  padding: 8px;
+  font-size: 12px;
+  color: #666;
+  margin-top: auto;
+  font-family: var(--body-font);
 }
 
-.load-more-button {
-  background-color: var(--primary-color);
-  color: var(--text-on-primary);
-  border: none;
-  padding: 10px 20px;
-  border-radius: 4px;
-  cursor: pointer;
-  font-weight: bold;
-  transition: background-color 0.3s;
+footer a {
+  color: var(--primary-dark);
+  text-decoration: none;
+  transition: color 0.2s;
 }
 
-.load-more-button:hover {
-  background-color: var(--primary-color-dark);
+footer a:hover {
+  color: var(--primary-color);
+  text-decoration: underline;
 }
 
-.load-more-button:disabled {
-  background-color: #ccc;
-  cursor: not-allowed;
+/* ===== RESPONSIVE STYLES ===== */
+@media screen and (max-width: 1000px) {
+  .app-container {
+    padding: 0 8px;
+    margin: 10px auto;
+    max-width: 100%;
+  }
+  
+  .card-container {
+    box-shadow: 0 8px 16px rgba(0, 0, 0, 0.2);
+  }
+
+  h1 {
+    font-size: 28px;
+  }
+  
+  .logo {
+    height: 36px;
+  }
+  
+  footer {
+    padding: 5px;
+    margin-top: 5px;
+    font-size: 10px;
+  }
 }
 
-/* Make sure the video list has a min-height to avoid layout shifts */
-.video-scroll {
-  min-height: 200px;
+/* Tablet and smaller screens */
+@media screen and (max-width: 768px) {
+  .app-container {
+    flex-direction: column;
+  }
+  
+  .main-column, .list-container {
+    flex: auto;
+    width: 100%;
+  }
+  
+  .list-container {
+    max-height: 400px;
+    position: static;
+  }
+  
+  .video-info {
+    max-height: 150px;
+  }
+}
+
+/* Mobile screens */
+@media screen and (max-width: 480px) {
+  .app-container {
+    margin: 5px auto;
+  }
+  
+  .card-container {
+    box-shadow: 0 5px 10px rgba(0, 0, 0, 0.15);
+    margin-bottom: 5px;
+  }
+  
+  header {
+    padding: 8px 10px;
+  }
+  
+  h1 {
+    font-size: 22px;
+  }
+  
+  .logo {
+    height: 28px;
+  }
+  
+  .video-player, .video-list {
+    padding: 10px;
+  }
+  
+  .video-info {
+    max-height: 120px;
+  }
+  
+  .list-container {
+    max-height: 300px;
+  }
+  
+  .thumbnail {
+    width: 80px;
+  }
+  
+  .video-item h4 {
+    font-size: 0.8rem;
+  }
+  
+  footer {
+    padding: 3px;
+    margin-top: 3px;
+    font-size: 8px;
+  }
 }

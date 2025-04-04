@@ -29,22 +29,22 @@ const VideoList = ({ videos, currentVideo, onSelectVideo, onLoadMore, hasMore, i
                 </div>
               </div>
             ))}
-            
-            {/* Load More Button */}
-            {hasMore && (
-              <div className="load-more-container">
-                <button 
-                  className="load-more-button" 
-                  onClick={onLoadMore}
-                  disabled={isLoading}
-                >
-                  {isLoading ? 'Loading...' : 'Load More Videos'}
-                </button>
-              </div>
-            )}
           </>
         )}
       </div>
+      
+      {/* Load More Button */}
+      {hasMore && (
+        <div className="load-more-container">
+          <button 
+            className="load-more-button" 
+            onClick={onLoadMore}
+            disabled={isLoading}
+          >
+            {isLoading ? 'Loading...' : 'Load More'}
+          </button>
+        </div>
+      )}
     </div>
   );
 };

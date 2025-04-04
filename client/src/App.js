@@ -101,26 +101,83 @@ function App() {
   };
 
   if (loading && videos.length === 0) {
-    return <div className="loading">Loading videos...</div>;
+    return (
+      <div className="app-container">
+        <div className="main-column">
+          <div className="card-container">
+            <header>
+              <div className="header-content">
+                <img src="/images/logo.png" alt="Logo" className="logo" />
+                <h1>Marxist TV</h1>
+              </div>
+            </header>
+          </div>
+          <div className="card-container">
+            <div className="loading">Loading videos...</div>
+          </div>
+          <footer>
+            <a href="https://communistusa.org">Revolutionary Communists of America</a> - Powered by YouTube API
+          </footer>
+        </div>
+      </div>
+    );
   }
 
   if (error && videos.length === 0) {
-    return <div className="error">{error}</div>;
+    return (
+      <div className="app-container">
+        <div className="main-column">
+          <div className="card-container">
+            <header>
+              <div className="header-content">
+                <img src="/images/logo.png" alt="Logo" className="logo" />
+                <h1>Marxist TV</h1>
+              </div>
+            </header>
+          </div>
+          <div className="card-container">
+            <div className="error">{error}</div>
+          </div>
+          <footer>
+            <a href="https://communistusa.org">Revolutionary Communists of America</a> - Powered by YouTube API
+          </footer>
+        </div>
+      </div>
+    );
   }
 
   return (
     <div className="app-container">
-      <header>
-        <h1>Marxist TV</h1>
-        <SectionSelector 
-          sections={sections}
-          currentSection={currentSection}
-          onSectionChange={handleSectionChange}
-        />
-      </header>
-
-      <main>
-        <VideoPlayer video={currentVideo} />
+      {/* Main column with header and video player */}
+      <div className="main-column">
+        {/* Header card */}
+        <div className="card-container">
+          <header>
+            <div className="header-content">
+              <img src="/images/logo.png" alt="Logo" className="logo" />
+              <h1>Marxist TV</h1>
+            </div>
+            <SectionSelector 
+              sections={sections}
+              currentSection={currentSection}
+              onSectionChange={handleSectionChange}
+            />
+          </header>
+        </div>
+        
+        {/* Video player card */}
+        <div className="card-container player-container">
+          <VideoPlayer video={currentVideo} />
+        </div>
+        
+        {/* Footer */}
+        <footer>
+          <a href="https://communistusa.org">Revolutionary Communists of America</a> - Powered by YouTube API
+        </footer>
+      </div>
+      
+      {/* Video list as a separate floating card */}
+      <div className="card-container list-container">
         <VideoList 
           videos={videos}
           currentVideo={currentVideo}
@@ -129,7 +186,7 @@ function App() {
           hasMore={hasMore}
           isLoading={loadingMore}
         />
-      </main>
+      </div>
     </div>
   );
 }

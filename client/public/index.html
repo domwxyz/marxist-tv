@@ -4,7 +4,7 @@
     <meta charset="utf-8" />
     <link rel="icon" href="%PUBLIC_URL%/favicon.ico" />
     <meta name="viewport" content="width=device-width, initial-scale=1" />
-    <meta name="theme-color" content="#000000" />
+    <meta name="theme-color" content="#DB1E1E" />
     <meta
       name="description"
       content="Site for aggregating all Marxist video content in one location"
@@ -12,86 +12,81 @@
     <link rel="manifest" href="%PUBLIC_URL%/manifest.json" />
     <title>Marxist TV</title>
     
+    <!-- Preload fonts to avoid FOUT (Flash of Unstyled Text) -->
+    <link rel="preload" href="%PUBLIC_URL%/fonts/built-titling.otf" as="font" type="font/otf" crossorigin>
+    <link rel="preload" href="%PUBLIC_URL%/fonts/built-titling-bold.otf" as="font" type="font/otf" crossorigin>
+    <link rel="preload" href="%PUBLIC_URL%/fonts/cambria.ttf" as="font" type="font/ttf" crossorigin>
+    <link rel="preload" href="%PUBLIC_URL%/fonts/cambria-bold.ttf" as="font" type="font/ttf" crossorigin>
+    <link rel="preload" href="%PUBLIC_URL%/fonts/cambria-italic.ttf" as="font" type="font/ttf" crossorigin>
+    
     <style>
-      /* Force preload fonts to avoid FOUT (Flash of Unstyled Text) */
+      /* Font face declarations */
       @font-face {
-        font-family: 'Built Titling';
-        src: url('%PUBLIC_URL%/fonts/built-titling.otf') format('opentype'),
-             url('./fonts/built-titling.otf') format('opentype'),
-             url('/fonts/built-titling.otf') format('opentype');
-        font-weight: normal;
-        font-style: normal;
-        font-display: swap;
-      }
-      
-      @font-face {
-        font-family: 'Built Titling';
-        src: url('%PUBLIC_URL%/fonts/built-titling-bold.otf') format('opentype'),
-             url('./fonts/built-titling-bold.otf') format('opentype'),
-             url('/fonts/built-titling-bold.otf') format('opentype');
-        font-weight: bold;
-        font-style: normal;
-        font-display: swap;
-      }
-      
-      @font-face {
-        font-family: 'Cambria';
-        src: url('%PUBLIC_URL%/fonts/cambria.ttf') format('truetype'),
-             url('./fonts/cambria.ttf') format('truetype'),
-             url('/fonts/cambria.ttf') format('truetype');
-        font-weight: normal;
-        font-style: normal;
-        font-display: swap;
-      }
-      
-      @font-face {
-        font-family: 'Cambria';
-        src: url('%PUBLIC_URL%/fonts/cambria-bold.ttf') format('truetype'),
-             url('./fonts/cambria-bold.ttf') format('truetype'),
-             url('/fonts/cambria-bold.ttf') format('truetype');
-        font-weight: bold;
-        font-style: normal;
-        font-display: swap;
-      }
-      
-      @font-face {
-        font-family: 'Cambria';
-        src: url('%PUBLIC_URL%/fonts/cambria-italic.ttf') format('truetype'),
-             url('./fonts/cambria-italic.ttf') format('truetype'),
-             url('/fonts/cambria-italic.ttf') format('truetype');
-        font-weight: normal;
-        font-style: italic;
-        font-display: swap;
+          font-family: 'Built Titling';
+          src: url('%PUBLIC_URL%/fonts/built-titling.otf') format('opentype');
+          font-weight: normal;
+          font-style: normal;
+          font-display: swap;
       }
 
-      /* Explicitly define font families */
+      @font-face {
+          font-family: 'Built Titling';
+          src: url('%PUBLIC_URL%/fonts/built-titling-bold.otf') format('opentype');
+          font-weight: bold;
+          font-style: normal;
+          font-display: swap;
+      }
+      
+      @font-face {
+          font-family: 'Cambria';
+          src: url('%PUBLIC_URL%/fonts/cambria.ttf') format('truetype');
+          font-weight: normal;
+          font-style: normal;
+          font-display: swap;
+      }
+      
+      @font-face {
+          font-family: 'Cambria';
+          src: url('%PUBLIC_URL%/fonts/cambria-bold.ttf') format('truetype');
+          font-weight: bold;
+          font-style: normal;
+          font-display: swap;
+      }
+
+      @font-face {
+          font-family: 'Cambria';
+          src: url('%PUBLIC_URL%/fonts/cambria-italic.ttf') format('truetype');
+          font-weight: normal;
+          font-style: italic;
+          font-display: swap;
+      }
+
+      /* Root variables */
       :root {
-        --heading-font: 'Built Titling', 'Times New Roman', serif;
-        --body-font: 'Cambria', Georgia, serif;
-        --primary-color: #DB1E1E;
-        --primary-color-light: #f5dddd;
-        --primary-color-dark: #a51717;
-        --text-on-primary: white;
+          --primary-color: #DB1E1E;
+          --primary-light: #ee8181;
+          --primary-dark: #901414;
+          --text-on-primary: #ffffff;
+          --background: #dbd6d6;
+          --surface: #ffffff;
+          --text: #212121;
+          --divider: #e0e0e0;
+          --heading-font: 'Built Titling', serif;
+          --body-font: 'Cambria', Georgia, serif;
       }
 
-      h1 {
-        font-family: var(--heading-font) !important;
-        font-weight: bold;
+      /* Base styles to ensure fonts are applied immediately */
+      body {
+          font-family: var(--body-font);
+          margin: 0;
+          padding: 0;
+          background-color: var(--background);
       }
-      
-      h2, h3, h4, h5, h6 {
-        font-family: var(--heading-font) !important;
-        font-weight: normal;
-      }
-      
-      body, p, div, span, a {
-        font-family: var(--body-font);
+
+      h1, h2, h3, h4, h5, h6 {
+          font-family: var(--heading-font);
       }
     </style>
-    
-    <!-- Add explicit preload hints for browsers -->
-    <link rel="preload" href="%PUBLIC_URL%/fonts/built-titling.otf" as="font" type="font/otf" crossorigin>
-    <link rel="preload" href="%PUBLIC_URL%/fonts/cambria.ttf" as="font" type="font/ttf" crossorigin>
   </head>
   <body>
     <noscript>You need to enable JavaScript to run this app.</noscript>
