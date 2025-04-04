@@ -103,22 +103,22 @@ function App() {
   if (loading && videos.length === 0) {
     return (
       <div className="app-container">
-        <div className="main-column">
-          <div className="card-container">
-            <header>
-              <div className="header-content">
-                <img src="/images/logo.png" alt="Logo" className="logo" />
-                <h1>Marxist TV</h1>
-              </div>
-            </header>
+        <header>
+          <div className="header-content">
+            <img src="/images/logo.png" alt="Logo" className="logo" />
+            <h1>Marxist TV</h1>
           </div>
-          <div className="card-container">
-            <div className="loading">Loading videos...</div>
+        </header>
+        <div className="content-container">
+          <div className="main-column">
+            <div className="card-container">
+              <div className="loading">Loading videos...</div>
+            </div>
           </div>
-          <footer>
-            <a href="https://communistusa.org">Revolutionary Communists of America</a> - Powered by YouTube API
-          </footer>
         </div>
+        <footer>
+          <a href="https://communistusa.org">Revolutionary Communists of America</a> - Powered by YouTube API
+        </footer>
       </div>
     );
   }
@@ -126,67 +126,67 @@ function App() {
   if (error && videos.length === 0) {
     return (
       <div className="app-container">
-        <div className="main-column">
-          <div className="card-container">
-            <header>
-              <div className="header-content">
-                <img src="/images/logo.png" alt="Logo" className="logo" />
-                <h1>Marxist TV</h1>
-              </div>
-            </header>
+        <header>
+          <div className="header-content">
+            <img src="/images/logo.png" alt="Logo" className="logo" />
+            <h1>Marxist TV</h1>
           </div>
-          <div className="card-container">
-            <div className="error">{error}</div>
+        </header>
+        <div className="content-container">
+          <div className="main-column">
+            <div className="card-container">
+              <div className="error">{error}</div>
+            </div>
           </div>
-          <footer>
-            <a href="https://communistusa.org">Revolutionary Communists of America</a> - Powered by YouTube API
-          </footer>
         </div>
+        <footer>
+          <a href="https://communistusa.org">Revolutionary Communists of America</a> - Powered by YouTube API
+        </footer>
       </div>
     );
   }
 
   return (
     <div className="app-container">
-      {/* Main column with header and video player */}
-      <div className="main-column">
-        {/* Header card */}
-        <div className="card-container">
-          <header>
-            <div className="header-content">
-              <img src="/images/logo.png" alt="Logo" className="logo" />
-              <h1>Marxist TV</h1>
-            </div>
-            <SectionSelector 
-              sections={sections}
-              currentSection={currentSection}
-              onSectionChange={handleSectionChange}
-            />
-          </header>
+      {/* Header is now outside of the main column and spans full width */}
+      <header>
+        <div className="header-content">
+          <img src="/images/logo.png" alt="Logo" className="logo" />
+          <h1>Marxist TV</h1>
+        </div>
+        <SectionSelector 
+          sections={sections}
+          currentSection={currentSection}
+          onSectionChange={handleSectionChange}
+        />
+      </header>
+      
+      {/* New content container that wraps main column and list container */}
+      <div className="content-container">
+        {/* Main column with video player */}
+        <div className="main-column">
+          <div className="card-container player-container">
+            <VideoPlayer video={currentVideo} />
+          </div>
         </div>
         
-        {/* Video player card */}
-        <div className="card-container player-container">
-          <VideoPlayer video={currentVideo} />
+        {/* Video list as a separate floating card */}
+        <div className="card-container list-container">
+          <VideoList 
+            videos={videos}
+            currentVideo={currentVideo}
+            onSelectVideo={handleVideoSelect}
+            onLoadMore={handleLoadMore}
+            hasMore={hasMore}
+            isLoading={loadingMore}
+          />
         </div>
-        
-        {/* Footer */}
-        <footer>
-          <a href="https://communistusa.org">Revolutionary Communists of America</a> - Powered by YouTube API
-        </footer>
       </div>
       
-      {/* Video list as a separate floating card */}
-      <div className="card-container list-container">
-        <VideoList 
-          videos={videos}
-          currentVideo={currentVideo}
-          onSelectVideo={handleVideoSelect}
-          onLoadMore={handleLoadMore}
-          hasMore={hasMore}
-          isLoading={loadingMore}
-        />
-      </div>
+      {/* Footer is now outside of the main column and spans full width */}
+      <footer>
+        <a href="https://communistusa.org">Revolutionary Communists of America</a> - Powered by YouTube API
+      </footer>
     </div>
   );
 }
