@@ -13,9 +13,12 @@
     <title>Marxist TV</title>
     
     <style>
+      /* Force preload fonts to avoid FOUT (Flash of Unstyled Text) */
       @font-face {
         font-family: 'Built Titling';
-        src: url('%PUBLIC_URL%/fonts/built-titling.otf') format('opentype');
+        src: url('%PUBLIC_URL%/fonts/built-titling.otf') format('opentype'),
+             url('./fonts/built-titling.otf') format('opentype'),
+             url('/fonts/built-titling.otf') format('opentype');
         font-weight: normal;
         font-style: normal;
         font-display: swap;
@@ -23,7 +26,9 @@
       
       @font-face {
         font-family: 'Built Titling';
-        src: url('%PUBLIC_URL%/fonts/built-titling-bold.otf') format('opentype');
+        src: url('%PUBLIC_URL%/fonts/built-titling-bold.otf') format('opentype'),
+             url('./fonts/built-titling-bold.otf') format('opentype'),
+             url('/fonts/built-titling-bold.otf') format('opentype');
         font-weight: bold;
         font-style: normal;
         font-display: swap;
@@ -31,7 +36,9 @@
       
       @font-face {
         font-family: 'Cambria';
-        src: url('%PUBLIC_URL%/fonts/cambria.ttf') format('truetype');
+        src: url('%PUBLIC_URL%/fonts/cambria.ttf') format('truetype'),
+             url('./fonts/cambria.ttf') format('truetype'),
+             url('/fonts/cambria.ttf') format('truetype');
         font-weight: normal;
         font-style: normal;
         font-display: swap;
@@ -39,7 +46,9 @@
       
       @font-face {
         font-family: 'Cambria';
-        src: url('%PUBLIC_URL%/fonts/cambria-bold.ttf') format('truetype');
+        src: url('%PUBLIC_URL%/fonts/cambria-bold.ttf') format('truetype'),
+             url('./fonts/cambria-bold.ttf') format('truetype'),
+             url('/fonts/cambria-bold.ttf') format('truetype');
         font-weight: bold;
         font-style: normal;
         font-display: swap;
@@ -47,13 +56,15 @@
       
       @font-face {
         font-family: 'Cambria';
-        src: url('%PUBLIC_URL%/fonts/cambria-italic.ttf') format('truetype');
+        src: url('%PUBLIC_URL%/fonts/cambria-italic.ttf') format('truetype'),
+             url('./fonts/cambria-italic.ttf') format('truetype'),
+             url('/fonts/cambria-italic.ttf') format('truetype');
         font-weight: normal;
         font-style: italic;
         font-display: swap;
       }
 
-      /* Fallback font definitions in case custom fonts fail to load */
+      /* Explicitly define font families */
       :root {
         --heading-font: 'Built Titling', 'Times New Roman', serif;
         --body-font: 'Cambria', Georgia, serif;
@@ -62,7 +73,21 @@
         --primary-color-dark: #a51717;
         --text-on-primary: white;
       }
+      
+      /* Force font usage in critical elements */
+      h1, h2, h3, h4, h5, h6 {
+        font-family: var(--heading-font) !important;
+        font-weight: normal;
+      }
+      
+      body, p, div, span, a {
+        font-family: var(--body-font);
+      }
     </style>
+    
+    <!-- Add explicit preload hints for browsers -->
+    <link rel="preload" href="%PUBLIC_URL%/fonts/built-titling.otf" as="font" type="font/otf" crossorigin>
+    <link rel="preload" href="%PUBLIC_URL%/fonts/cambria.ttf" as="font" type="font/ttf" crossorigin>
   </head>
   <body>
     <noscript>You need to enable JavaScript to run this app.</noscript>
