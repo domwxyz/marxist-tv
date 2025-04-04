@@ -400,6 +400,7 @@ footer a:hover {
 @media screen and (max-width: 768px) {
   .app-container {
     flex-direction: column;
+    gap: 10px;
   }
   
   .main-column, .list-container {
@@ -410,10 +411,13 @@ footer a:hover {
   .list-container {
     max-height: 400px;
     position: static;
+    margin-top: 10px;
   }
-  
-  .video-info {
-    max-height: 150px;
+
+  /* Ensure video description doesn't overflow and is scrollable */
+  .video-description {
+    overflow-y: auto;
+    padding-right: 5px;
   }
 }
 
@@ -421,34 +425,77 @@ footer a:hover {
 @media screen and (max-width: 480px) {
   .app-container {
     margin: 5px auto;
+    padding: 0 5px;
   }
   
   .card-container {
     box-shadow: 0 5px 10px rgba(0, 0, 0, 0.15);
-    margin-bottom: 5px;
+    margin-bottom: 10px;
   }
   
   header {
-    padding: 8px 10px;
+    padding: 10px;
+    min-height: 80px; /* Smaller min-height for mobile */
   }
   
   h1 {
-    font-size: 22px;
+    font-size: 24px;
   }
   
   .logo {
     height: 28px;
   }
   
-  .video-player, .video-list {
+  /* Adjust section selector for mobile */
+  .section-selector {
+    gap: 5px;
+    margin: 8px 0;
+  }
+  
+  .section-selector button {
+    padding: 6px 10px;
+    font-size: 12px;
+  }
+  
+  /* Improve video player layout for mobile */
+  .video-player {
     padding: 10px;
   }
   
-  .video-info {
-    max-height: 120px;
+  .video-container {
+    margin-bottom: 10px;
   }
   
-  .list-container {
+  /* Fix video info rendering on mobile */
+  .video-info {
+    max-height: none; /* Remove fixed height */
+    overflow: visible; /* No need for scrollbar on the whole info area */
+  }
+  
+  .video-info h2 {
+    font-size: 18px;
+    margin-bottom: 8px;
+  }
+  
+  /* Make description scrollable independently */
+  .video-description {
+    border-top: 1px solid var(--divider);
+    padding-top: 8px;
+    margin-top: 8px;
+    overflow-y: auto;
+  }
+  
+  /* Improve video list rendering */
+  .video-list {
+    padding: 10px;
+  }
+  
+  .video-list h3 {
+    font-size: 16px;
+    margin-bottom: 10px;
+  }
+  
+  .video-scroll {
     max-height: 300px;
   }
   
@@ -456,13 +503,18 @@ footer a:hover {
     width: 80px;
   }
   
-  .video-item h4 {
-    font-size: 0.8rem;
+  .video-item {
+    padding: 6px;
   }
   
-  footer {
-    padding: 3px;
-    margin-top: 3px;
-    font-size: 8px;
+  .video-item h4 {
+    font-size: 13px;
+  }
+  
+  /* Better button for mobile touch */
+  .load-more-button {
+    padding: 8px 16px;
+    font-size: 14px;
+    min-height: 40px; /* Better touch target */
   }
 }
