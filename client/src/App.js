@@ -161,7 +161,7 @@ function App() {
         />
       </header>
       
-      {/* New content container that wraps main column and list container */}
+      {/* Content container wraps both columns */}
       <div className="content-container">
         {/* Main column with video player */}
         <div className="main-column">
@@ -170,8 +170,8 @@ function App() {
           </div>
         </div>
         
-        {/* Video list as a separate floating card */}
-        <div className="card-container list-container">
+        {/* Video list column */}
+        <div className="list-container card-container">
           <VideoList 
             videos={videos}
             currentVideo={currentVideo}
@@ -183,7 +183,7 @@ function App() {
         </div>
       </div>
       
-      {/* Footer is now outside of the main column and spans full width */}
+      {/* Footer spans full width */}
       <footer>
         <a href="https://communistusa.org">Revolutionary Communists of America</a> - Powered by YouTube API
       </footer>

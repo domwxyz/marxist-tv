@@ -385,25 +385,27 @@ footer a:hover {
 
 /* Tablet and smaller screens */
 @media screen and (max-width: 768px) {
+  .app-container {
+    height: auto;
+    min-height: 100vh;
+  }
+  
   .content-container {
     flex-direction: column;
     gap: 10px;
+    overflow-y: auto;
   }
   
-  .main-column, .list-container {
-    flex: auto;
+  .main-column {
+    flex: 0 0 auto; /* Don't grow or shrink, just be the size needed */
     width: 100%;
   }
   
   .list-container {
+    flex: 0 0 auto; /* Don't grow or shrink, just be the size needed */
+    width: 100%;
+    min-height: 300px;
     max-height: 400px;
-    position: static;
-  }
-
-  /* Ensure video description doesn't overflow and is scrollable */
-  .video-description {
-    overflow-y: auto;
-    padding-right: 5px;
   }
 }
 
