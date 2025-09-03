@@ -10,7 +10,7 @@ Marxist TV is designed to gather content from specified YouTube channels and pre
 
 - Aggregates videos from multiple YouTube channels
 - Organizes content by sections (RCA, RCI, RCP)
-- Automatically updates video content periodically
+- Automatically updates video content every 30 minutes
 - Responsive web interface for viewing videos
 - Filter videos by section
 
@@ -18,17 +18,17 @@ Marxist TV is designed to gather content from specified YouTube channels and pre
 
 ```
 marxist-tv/
-├── client/               # React frontend
-│   ├── public/           # Static files
-│   └── src/              # React source code
-│       ├── components/   # React components
-│       └── services/     # API service functions
-├── src/                  # FastAPI backend
-│   ├── database/         # Database configuration
-│   ├── models/           # Data models
-│   ├── routes/           # API endpoints
-│   └── services/         # Business logic
-└── channels.json         # Channel configuration
+├── backend/
+│   ├── main.py           # FastAPI application
+│   ├── channels.json     # Channel configuration
+│   ├── requirements.txt  # Python dependencies
+│   └── .env             # Environment variables
+└── frontend/
+    ├── src/
+    │   ├── App.js       # React application
+    │   ├── App.css      # Styles
+    │   └── index.js     # Entry point
+    └── package.json     # Node dependencies
 ```
 
 ## Setup and Installation
@@ -41,10 +41,9 @@ marxist-tv/
 
 ### Backend Setup
 
-1. Clone the repository:
+1. Navigate to the backend directory:
    ```
-   git clone https://github.com/yourusername/marxist-tv.git
-   cd marxist-tv
+   cd backend
    ```
 
 2. Create a virtual environment and install dependencies:
@@ -56,7 +55,7 @@ marxist-tv/
 
 3. Set up environment variables:
    ```
-   cp src/.env.example src/.env
+   cp .env.example .env
    ```
    
 4. Edit the `.env` file and add your YouTube API key:
@@ -67,9 +66,9 @@ marxist-tv/
 
 ### Frontend Setup
 
-1. Navigate to the client directory:
+1. Navigate to the frontend directory:
    ```
-   cd client
+   cd frontend
    ```
 
 2. Install dependencies:
@@ -82,8 +81,8 @@ marxist-tv/
 ### Start the Backend
 
 ```
-cd src
-uvicorn main:app --reload
+cd backend
+python main.py
 ```
 
 The API will be available at http://localhost:8000. API documentation is available at http://localhost:8000/docs.
@@ -93,7 +92,7 @@ The API will be available at http://localhost:8000. API documentation is availab
 In a new terminal:
 
 ```
-cd client
+cd frontend
 npm start
 ```
 
@@ -103,7 +102,7 @@ The web application will open automatically at http://localhost:3000.
 
 ### Adding YouTube Channels
 
-Edit the `channels.json` file to add new channels:
+Edit the `backend/channels.json` file to add new channels:
 
 ```json
 [
@@ -118,6 +117,22 @@ Edit the `channels.json` file to add new channels:
 - `section`: A category for organizing content (e.g., "RCA", "RCI", "RCP")
 
 The application will automatically load channels from this file on startup.
+
+### Initial Load Settings
+
+By default, the application fetches the complete video history on first run. You can adjust this in `backend/main.py`:
+
+- `FETCH_ALL_ON_INITIAL = True` - Fetch entire channel history (default)
+- `UPDATE_INTERVAL = 1800` - Update interval in seconds (default: 30 minutes)
+
+## Production Deployment
+
+For production deployment on a VPS or cloud server:
+
+1. Build the frontend: `npm run build`
+2. Set up a reverse proxy with Nginx
+3. Run the backend with a process manager like systemd
+4. Configure SSL with Let's Encrypt
 
 ## License
 
