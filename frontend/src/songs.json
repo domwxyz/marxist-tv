@@ -1,0 +1,93 @@
+{
+  "songs": [
+    {
+      "id": "internationale",
+      "title": "The Internationale",
+      "subtitle": "Kerr Translation",
+      "audioFile": "/audio/internationale.mp3",
+      "category": "Classic",
+      "year": "1888",
+      "composer": "Pierre De Geyter / Jerry Engelbach",
+      "lyricist": "Eugène Pottier / Charles H. Kerr",
+      "description": "The international anthem of the working class movement",
+      "lyrics": {
+        "verses": [
+          {
+            "type": "verse",
+            "number": 1,
+            "lines": [
+              "Arise, ye prisoners of starvation!",
+              "Arise, ye wretched of the earth!",
+              "For justice thunders condemnation,",
+              "A better world's in birth!",
+              "No more tradition's chains shall bind us",
+              "Arise, ye slaves, no more in thrall;",
+              "The earth shall rise on new foundations",
+              "We have been naught we shall be all."
+            ]
+          },
+          {
+            "type": "chorus",
+            "lines": [
+              "'Tis the final conflict,",
+              "Let each stand in his place.",
+              "The Internationale",
+              "Shall be the human race."
+            ]
+          },
+          {
+            "type": "verse",
+            "number": 2,
+            "lines": [
+              "We want no condescending saviors",
+              "To rule us from their judgement hall;",
+              "We workers ask not for their favors;",
+              "Let us consult for all.",
+              "To make the theif disgorge his booty",
+              "To free the spirit from its cell,",
+              "We must ourselves decide our duty,",
+              "We must decide and do it well."
+            ]
+          }
+        ],
+        "notes": "Translation notes or performance instructions can go here"
+      }
+    },
+    {
+      "id": "bandiera-rossa",
+      "title": "Bandiera Rossa",
+      "subtitle": "The Red Flag",
+      "audioFile": "/audio/bandiera-rossa.mp3",
+      "category": "Classic",
+      "year": "1908",
+      "composer": "Carlo Tuzzi",
+      "lyricist": "Carlo Tuzzi",
+      "description": "Italian socialist anthem",
+      "lyrics": {
+        "verses": [
+          {
+            "type": "verse",
+            "number": 1,
+            "lines": [
+              "Avanti o popolo, alla riscossa",
+              "Bandiera rossa, bandiera rossa",
+              "Avanti o popolo, alla riscossa",
+              "Bandiera rossa trionferà."
+            ]
+          },
+          {
+            "type": "chorus",
+            "lines": [
+              "Bandiera rossa la trionferà",
+              "Bandiera rossa la trionferà",
+              "Bandiera rossa la trionferà",
+              "Evviva il socialismo e la libertà!"
+            ]
+          }
+        ],
+        "notes": "Any additional notes"
+      }
+    }
+  ],
+  "categories": ["Classic", "Modern"]
+}

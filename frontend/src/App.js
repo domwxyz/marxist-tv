@@ -1,10 +1,22 @@
 import React, { useState, useEffect, useCallback } from 'react';
+import Music from './Music';
 import './App.css';
 
 // API configuration
 const API_URL = process.env.REACT_APP_API_URL || 'http://localhost:8000';
 
 function App() {
+  // Check if we're on the music page
+  const currentPath = window.location.pathname;
+  const isMusic = currentPath === '/music' || currentPath === '/songs';
+  
+  // Redirect /songs to /music
+  useEffect(() => {
+    if (currentPath === '/songs') {
+      window.history.replaceState(null, '', '/music');
+    }
+  }, [currentPath]);
+
   // State management (no Redux needed!)
   const [videos, setVideos] = useState([]);
   const [currentVideo, setCurrentVideo] = useState(null);
@@ -17,19 +29,20 @@ function App() {
   
   const LIMIT = 20; // Videos per page
 
-  // Fetch sections on mount
+  // Only fetch video data if not on music page
   useEffect(() => {
-    fetch(`${API_URL}/api/sections`)
-      .then(res => res.json())
-      .then(data => setSections(data.sections))
-      .catch(err => console.error('Failed to fetch sections:', err));
-    
-    // Also fetch stats
-    fetch(`${API_URL}/api/stats`)
-      .then(res => res.json())
-      .then(data => setStats(data))
-      .catch(err => console.error('Failed to fetch stats:', err));
-  }, []);
+    if (!isMusic) {
+      fetch(`${API_URL}/api/sections`)
+        .then(res => res.json())
+        .then(data => setSections(data.sections))
+        .catch(err => console.error('Failed to fetch sections:', err));
+      
+      fetch(`${API_URL}/api/stats`)
+        .then(res => res.json())
+        .then(data => setStats(data))
+        .catch(err => console.error('Failed to fetch stats:', err));
+    }
+  }, [isMusic]);
 
   // Fetch videos
   const fetchVideos = useCallback(async (section, newOffset = 0, append = false) => {
@@ -45,7 +58,6 @@ function App() {
         setVideos(prev => [...prev, ...data.videos]);
       } else {
         setVideos(data.videos);
-        // Set first video as current when loading new section
         if (data.videos.length > 0) {
           setCurrentVideo(data.videos[0]);
         }
@@ -60,12 +72,14 @@ function App() {
     }
   }, []);
 
-  // Load videos when section changes
+  // Load videos when section changes (only if not on music page)
   useEffect(() => {
-    setOffset(0);
-    setCurrentVideo(null);
-    fetchVideos(currentSection, 0, false);
-  }, [currentSection, fetchVideos]);
+    if (!isMusic) {
+      setOffset(0);
+      setCurrentVideo(null);
+      fetchVideos(currentSection, 0, false);
+    }
+  }, [currentSection, fetchVideos, isMusic]);
 
   // Handle section change
   const handleSectionChange = (section) => {
@@ -75,7 +89,6 @@ function App() {
   // Handle video selection
   const handleVideoSelect = (video) => {
     setCurrentVideo(video);
-    // Smooth scroll to top on mobile
     window.scrollTo({ top: 0, behavior: 'smooth' });
   };
 
@@ -96,11 +109,22 @@ function App() {
     });
   };
 
-  // Loading state
-  if (loading && videos.length === 0) {
+  // Navigate to different pages
+  const navigateTo = (path) => {
+    window.location.href = path;
+  };
+
+  // Loading state for videos page
+  if (!isMusic && loading && videos.length === 0) {
     return (
       <div className="app-container">
-        <Header sections={sections} currentSection={currentSection} onSectionChange={handleSectionChange} />
+        <Header 
+          sections={sections} 
+          currentSection={currentSection} 
+          onSectionChange={handleSectionChange}
+          isMusic={isMusic}
+          navigateTo={navigateTo}
+        />
         <div className="loading">Loading videos...</div>
         <Footer stats={stats} />
       </div>
@@ -112,59 +136,81 @@ function App() {
       <Header 
         sections={sections} 
         currentSection={currentSection} 
-        onSectionChange={handleSectionChange} 
+        onSectionChange={handleSectionChange}
+        isMusic={isMusic}
+        navigateTo={navigateTo}
       />
       
-      <div className="content-container">
-        {/* Video Player Column */}
-        <div className="main-column">
-          <div className="card-container player-container">
-            {currentVideo ? (
-              <VideoPlayer video={currentVideo} formatDate={formatDate} />
-            ) : (
-              <div className="video-placeholder">Select a video to watch</div>
-            )}
+      {isMusic ? (
+        <Music />
+      ) : (
+        <div className="content-container">
+          {/* Video Player Column */}
+          <div className="main-column">
+            <div className="card-container player-container">
+              {currentVideo ? (
+                <VideoPlayer video={currentVideo} formatDate={formatDate} />
+              ) : (
+                <div className="video-placeholder">Select a video to watch</div>
+              )}
+            </div>
+          </div>
+          
+          {/* Video List Column */}
+          <div className="list-container card-container">
+            <VideoList 
+              videos={videos}
+              currentVideo={currentVideo}
+              onSelectVideo={handleVideoSelect}
+              onLoadMore={handleLoadMore}
+              hasMore={hasMore}
+              isLoading={loading}
+              formatDate={formatDate}
+            />
           </div>
         </div>
-        
-        {/* Video List Column */}
-        <div className="list-container card-container">
-          <VideoList 
-            videos={videos}
-            currentVideo={currentVideo}
-            onSelectVideo={handleVideoSelect}
-            onLoadMore={handleLoadMore}
-            hasMore={hasMore}
-            isLoading={loading}
-            formatDate={formatDate}
-          />
-        </div>
-      </div>
+      )}
       
       <Footer stats={stats} />
     </div>
   );
 }
 
-// Header Component
-function Header({ sections, currentSection, onSectionChange }) {
+// Header Component - Updated with navigation
+function Header({ sections, currentSection, onSectionChange, isMusic, navigateTo }) {
   return (
     <header>
+      <div className="header-nav">
+        <button 
+          className={`nav-button ${!isMusic ? 'active' : ''}`}
+          onClick={() => navigateTo('/')}
+        >
+          Videos
+        </button>
+        <button 
+          className={`nav-button ${isMusic ? 'active' : ''}`}
+          onClick={() => navigateTo('/music')}
+        >
+          Music
+        </button>
+      </div>
       <div className="header-content">
         <img src="/images/logo.png" alt="Logo" className="logo" />
-        <h1>Marxist TV</h1>
+        <h1>Marxist TV{isMusic ? ' - Music' : ''}</h1>
       </div>
-      <div className="section-selector">
-        {sections.map(section => (
-          <button
-            key={section}
-            className={currentSection === section ? 'active' : ''}
-            onClick={() => onSectionChange(section)}
-          >
-            {section === 'all' ? 'All Sections' : section}
-          </button>
-        ))}
-      </div>
+      {!isMusic && (
+        <div className="section-selector">
+          {sections.map(section => (
+            <button
+              key={section}
+              className={currentSection === section ? 'active' : ''}
+              onClick={() => onSectionChange(section)}
+            >
+              {section === 'all' ? 'All Sections' : section}
+            </button>
+          ))}
+        </div>
+      )}
     </header>
   );
 }
