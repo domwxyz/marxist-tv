@@ -1,17 +1,48 @@
 /* ===== VARIABLES ===== */
 :root {
+  /* brand */
+  --primary: #DB1E1E;
   --primary-color: #DB1E1E;
   --primary-light: #ee8181;
+  --primary-glow: #ff5252;
   --primary-dark: #901414;
-  --text-on-primary: #ffffff;
-  --background: #dbd6d6;
+
+  /* neutrals */
+  --bg: #f5f3f3;
   --surface: #ffffff;
-  --text: #212121;
+  --surface-elevated: #ffffff;
   --divider: #e0e0e0;
-  --heading-font: 'Built Titling', serif;
-  --body-font: 'Cambria', Georgia, serif;
-  --box-shadow: 0 4px 10px rgba(0, 0, 0, 0.2);
+  --text: #2c2c2c;
+  --text-light: #666;
+
+  /* typography */
+  --font-heading: "Built Titling", "Helvetica Neue", sans-serif;
+  --font-body: "Cambria", Georgia, serif;
+
+  /* spacing rhythm (4-pt grid) */
+  --space-xs: 4px;
+  --space-sm: 8px;
+  --space-md: 16px;
+  --space-lg: 24px;
+  --space-xl: 32px;
+
+  /* elevation */
+  --shadow-sm: 0 1px 3px rgba(0,0,0,.12);
+  --shadow-md: 0 4px 12px rgba(0,0,0,.15);
+  --shadow-lg: 0 8px 24px rgba(0,0,0,.18);
+
+  /* motion */
+  --ease: cubic-bezier(.4,0,.2,1);
+  --speed: 220ms;
 }
+
+html {
+  font-size: clamp(14px, 1vw + 12px, 18px);
+}
+
+h1 { font-size: clamp(1.8rem, 4vw, 3rem); }
+h2 { font-size: clamp(1.4rem, 3vw, 2.2rem); }
+h3 { font-size: clamp(1.1rem, 2.5vw, 1.5rem); }
 
 /* ===== BASE STYLES ===== */
 body {
@@ -31,7 +62,8 @@ h1, h2, h3, h4, h5, h6 {
 .app-container {
   max-width: 1200px;
   margin: 0 auto;
-  padding: 0 10px;
+  padding-left: max(10px, env(safe-area-inset-left));
+  padding-right: max(10px, env(safe-area-inset-right));
   display: flex;
   flex-direction: column;
   height: 100vh;
@@ -78,7 +110,9 @@ h1, h2, h3, h4, h5, h6 {
 
 /* ===== HEADER ===== */
 header {
-  background-color: var(--primary-color);
+  background: rgba(219,30,30,.92);
+  backdrop-filter: blur(10px);
+  -webkit-backdrop-filter: blur(10px);
   color: var(--text-on-primary);
   padding: 12px 20px;
   text-align: center;
@@ -87,7 +121,10 @@ header {
   flex-direction: column;
   justify-content: center;
   margin-top: 10px;
-  box-shadow: var(--box-shadow);
+  box-shadow: var(--shadow-md);
+  position: sticky;
+  top: 0;
+  z-index: 100;
 }
 
 .header-content {
@@ -122,26 +159,56 @@ h1 {
   width: 100%;
 }
 
-.section-selector button {
-  padding: 8px 16px;
-  border: 1px solid var(--text-on-primary);
-  background: transparent;
-  color: var(--text-on-primary);
-  cursor: pointer;
+.section-selector button,
+.nav-button,
+.load-more-button {
+  border: none;
   border-radius: 4px;
-  transition: all 0.2s;
+  padding: var(--space-sm) var(--space-md);
   font-family: var(--heading-font);
+  font-weight: 600;
+  letter-spacing: .5px;
+  cursor: pointer;
+  transition: all var(--speed) var(--ease);
+  box-shadow: var(--shadow-sm);
+}
+.section-selector button:hover,
+.nav-button:hover {
+  transform: translateY(-2px);
+  box-shadow: var(--shadow-md);
+}
+.section-selector button:active,
+.nav-button:active {
+  transform: translateY(0);
+  box-shadow: var(--shadow-sm);
+}
+.section-selector button.active,
+.nav-button.active {
+  background: var(--text-on-primary);
+  color: var(--primary-color);
+}
+
+.section-selector button {
+  background: var(--primary-color);        /* red inactive */
+  color: var(--text-on-primary);           /* white text  */
+  border: none;
 }
 
 .section-selector button:hover {
-  background: rgba(255, 255, 255, 0.2);
+  transform: translateY(-2px);
+  box-shadow: var(--shadow-md);
+  background: var(--primary-light);        /* lighter red */
+}
+
+.section-selector button:active {
+  transform: translateY(0);
+  box-shadow: var(--shadow-sm);
 }
 
 .section-selector button.active {
   background: var(--text-on-primary);
   color: var(--primary-color);
-  border-color: var(--text-on-primary);
-  font-weight: bold;
+  font-weight: 700;
 }
 
 /* ===== VIDEO PLAYER ===== */
@@ -237,18 +304,18 @@ h1 {
   padding: 8px;
   border-radius: 4px;
   cursor: pointer;
-  transition: background-color 0.2s;
   border-left: 3px solid transparent;
+  transition: transform var(--speed) var(--ease),
+              box-shadow var(--speed) var(--ease),
+              border-color var(--speed) var(--ease);
 }
-
 .video-item:hover {
-  background-color: var(--primary-light);
-  border-left-color: var(--primary-color);
+  transform: translateX(4px);
+  box-shadow: var(--shadow-sm);
 }
-
 .video-item.active {
-  background-color: var(--primary-light);
   border-left-color: var(--primary-color);
+  background: rgba(219,30,30,.05);
 }
 
 .thumbnail {

@@ -281,7 +281,7 @@ function VideoList({ videos, currentVideo, onSelectVideo, onLoadMore, hasMore, i
 function Footer({ stats }) {
   return (
     <footer>
-      <a href="https://communistusa.org">Revolutionary Communists of America</a>
+      <a href="https://communistusa.org">Revolutionary Communists of America </a>
       {stats && (
         <span> 
           • {stats.video_count} videos from {stats.channel_count} channels

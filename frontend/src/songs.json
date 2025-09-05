@@ -50,7 +50,7 @@
             ]
           }
         ],
-        "notes": "Translation notes or performance instructions can go here"
+        "notes": "Additional notes"
       }
     },
     {
@@ -85,7 +85,7 @@
             ]
           }
         ],
-        "notes": "Any additional notes"
+        "notes": "Additional notes"
       }
     }
   ],

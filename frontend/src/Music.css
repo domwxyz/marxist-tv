@@ -218,23 +218,24 @@
 
 .song-item {
   display: flex;
-  gap: 15px;
-  padding: 10px;
+  gap: 10px;
+  padding: 8px;
   border-radius: 4px;
   cursor: pointer;
-  transition: all 0.2s;
   border-left: 3px solid transparent;
-  align-items: center;
+  transition: transform var(--speed) var(--ease),
+              box-shadow var(--speed) var(--ease),
+              border-color var(--speed) var(--ease);
 }
 
 .song-item:hover {
-  background-color: var(--primary-light);
-  border-left-color: var(--primary-color);
+  transform: translateX(4px);
+  box-shadow: var(--shadow-sm);
 }
 
 .song-item.active {
-  background-color: var(--primary-light);
   border-left-color: var(--primary-color);
+  background: rgba(219,30,30,.05);
 }
 
 .song-icon {
