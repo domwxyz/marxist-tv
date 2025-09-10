@@ -48,9 +48,18 @@
               "We must ourselves decide our duty,",
               "We must decide and do it well."
             ]
+          },
+          {
+            "type": "chorus",
+            "lines": [
+              "'Tis the final conflict,",
+              "Let each stand in his place.",
+              "The Internationale",
+              "Shall be the human race."
+            ]
           }
         ],
-        "notes": "Additional notes"
+        "notes": "Specific instrumental arrangement composed by Jerry Engelbach."
       }
     },
     {
@@ -83,9 +92,147 @@
               "Bandiera rossa la trionferà",
               "Evviva il socialismo e la libertà!"
             ]
+          },
+          {
+            "type": "verse",
+            "number": 2,
+            "lines": [
+              "Degli sfruttati l'immensa schiera",
+              "La pura innalzi, rossa bandiera.",
+              "O proletari, alla riscossa",
+              "Bandiera rossa trionferà."
+            ]
+          },
+          {
+            "type": "chorus",
+            "lines": [
+              "Bandiera rossa la trionferà",
+              "Bandiera rossa la trionferà",
+              "Bandiera rossa la trionferà",
+              "Evviva il socialismo e la libertà!"
+            ]
           }
         ],
-        "notes": "Additional notes"
+        "notes": "Red flag will triumph."
+      }
+    },
+    {
+      "id": "preacher-slave",
+      "title": "The Preacher and the Slave",
+      "subtitle": "Pie in the Sky; Long Haired Preachers",
+      "audioFile": "/audio/preacher-slave.mp3",
+      "category": "Classic",
+      "year": "1911",
+      "composer": "Joseph P. Webster",
+      "lyricist": "Joe Hill",
+      "description": "IWW organizing song",
+      "lyrics": {
+        "verses": [
+          {
+            "type": "verse",
+            "number": 1,
+            "lines": [
+              "Long-haired preachers come out every night,",
+              "Try to tell you what's wrong and what's right;",
+              "But when asked how 'bout something to eat",
+              "They will answer with voices so sweet:"
+            ]
+          },
+          {
+            "type": "chorus",
+            "lines": [
+              "You will eat, bye and bye,",
+              "In that glorious land above the sky;",
+              "Work and pray, live on hay,",
+              "You'll get pie in the sky when you die."
+            ]
+          },
+          {
+            "type": "verse",
+            "number": 2,
+            "lines": [
+              "And the starvation army they play,",
+              "And they sing and they clap and they pray,",
+              "Till they get all your coin on the drum,",
+              "Then they tell you when you're on the bum:"
+            ]
+          },
+          {
+            "type": "chorus",
+            "lines": [
+              "You will eat, bye and bye,",
+              "In that glorious land above the sky;",
+              "Work and pray, live on hay,",
+              "You'll get pie in the sky when you die."
+            ]
+          },
+          {
+            "type": "verse",
+            "number": 3,
+            "lines": [
+              "Holy Rollers and Jumpers come out,",
+              "And they holler, they jump and they shout ",
+              "'Give your money to Jesus,' they say,",
+              "'He will cure all diseases today.'"
+            ]
+          },
+          {
+            "type": "chorus",
+            "lines": [
+              "You will eat, bye and bye,",
+              "In that glorious land above the sky;",
+              "Work and pray, live on hay,",
+              "You'll get pie in the sky when you die."
+            ]
+          }
+        ],
+        "notes": "Parody of Salvation Army Christian hymn In the Sweet By-and-By"
+      }
+    },
+    {
+      "id": "bella-ciao",
+      "title": "Bella ciao",
+      "subtitle": "Bye Beauty",
+      "audioFile": "/audio/bella-ciao.mp3",
+      "category": "Classic",
+      "year": "1953",
+      "composer": "Unknown",
+      "lyricist": "Unknown",
+      "description": "Italian fascist resistance song",
+      "lyrics": {
+        "verses": [
+          {
+            "type": "verse",
+            "number": 1,
+            "lines": [
+              "Una mattina mi son svegliato",
+              "O bella ciao, bella ciao, bella ciao ciao ciao",
+              "Una mattina mi son svegliato",
+              "Eo ho trovato l'invasor"
+            ]
+          },
+          {
+            "type": "verse",
+            "number": 2,
+            "lines": [
+              "O partigiano porta mi via",
+              "O bella ciao, bella ciao, bella ciao ciao ciao",
+              "O partigiano porta mi via",
+              "Che mi sento di morir"
+            ]
+          },
+          {
+            "type": "verse",
+            "number": 3,
+            "lines": [
+              "E se io muoio da partigiano",
+              "O bella ciao, bella ciao, bella ciao ciao ciao",
+              "E se io muoio da partigiano",
+              "Tu mi devi seppellir"
+            ]
+          }
+        ],
+        "notes": "Folk song origin from paddy field workers."
       }
     }
   ],
